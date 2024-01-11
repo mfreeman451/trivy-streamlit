@@ -13,6 +13,7 @@ https://github.com/aquasecurity/trivy
 
 ## 🏗️ Dependencies
 
+* trivy
 * python3
 * pip3
 
