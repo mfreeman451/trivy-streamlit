@@ -8,6 +8,7 @@ supported by the community.
 
 Thanks to AquaSecurity for providing this great tool.
 
+https://trivy.dev/
 https://github.com/aquasecurity/trivy
 
 
