@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit.web.cli as stcli
+import importlib.resources as pkg_resources
 import sys
 import json
 
@@ -16,7 +17,11 @@ SEVERITY_ORDER = {
 
 
 def start_app():
-    sys.argv = ["streamlit", "run", "trivy_streamlit/main_module.py"]
+    # Find the absolute path to 'main_module.py' in the installed package
+    with pkg_resources.path('trivy_streamlit', 'main_module.py') as path:
+        app_path = str(path)
+
+    sys.argv = ["streamlit", "run", app_path] + sys.argv[1:]
     sys.exit(stcli.main())
 
 
