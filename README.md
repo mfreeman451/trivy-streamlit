@@ -34,7 +34,15 @@ trivy k8s --format json -o results.json --scanners=vuln --severity=CRITICAL --re
 trivy image --format json -o results.json --scanners=vuln --severity=CRITICAL --report=all docker.io/grafana/grafana:10.2.2
 ```
 
-## 🪇 Installing Streamlit
+## Installation
+
+### 🛞 Install from pypi
+
+```bash
+pip install trivy-streamlit
+```
+
+### 🪇 Installing Streamlit
 
 https://docs.streamlit.io/get-started/installation
 
@@ -42,7 +50,7 @@ https://docs.streamlit.io/get-started/installation
 pip install streamlit
 ```
 
-## 🏃 Running Streamlit
+### 🏃 Running Streamlit
 
 ```bash
 streamlit run trivy-ui.py
