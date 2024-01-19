@@ -75,6 +75,12 @@ class TrivyParser:
             "description": description,
         }
         return finding
+    
+    def generate_markdown(self, findings):
+        markdown_text = ""
+        for finding in findings:
+            markdown_text += f"- [ ] **{finding['title']}**: Severity - {finding['severity']}, Resource - {finding['resource']}, Installed Version - {finding['installed_version']}, Fixed Version - {finding['fixed_version']}\n"
+        return markdown_text
 
 
 # Streamlit app interface
@@ -112,5 +118,16 @@ if uploaded_file is not None:
             st.write(f"Fixed Version: {finding['fixed_version']}")
             st.write("Description:", finding['description'])
             st.write("---")  # Line separator
+        
+        markdown_text = parser.generate_markdown(findings)
+
+        # Save to file option
+        st.download_button(
+            label="Download Markdown",
+            data=markdown_text,
+            file_name="findings.md",
+            mime="text/markdown"
+        )
     else:
         st.write("No findings were detected in the uploaded file.")
+    
