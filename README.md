@@ -21,8 +21,17 @@ It is beyond the scope of this document to explain how to install either of thos
 
 ## ⚙️ Generating JSON with trivy
 
+
+### k8s
+
 ```bash
 trivy k8s --format json -o results.json --scanners=vuln --severity=CRITICAL --report=all cluster
+```
+
+### image
+
+```bash
+trivy image --format json -o results.json --scanners=vuln --severity=CRITICAL --report=all docker.io/grafana/grafana:10.2.2
 ```
 
 ## 🪇 Installing Streamlit

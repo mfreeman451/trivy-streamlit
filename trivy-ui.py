@@ -12,22 +12,43 @@ SEVERITY_ORDER = {
     "N/A": 0  # In case severity is not available
 }
 
-
 class TrivyParser:
     def get_findings_from_json(self, json_data):
+        if "Resources" in json_data:
+            # Original JSON format from 'trivy k8s'
+            return self.parse_k8s_format(json_data)
+        elif "Results" in json_data:
+            # New JSON format from 'trivy image ...'
+            return self.parse_image_format(json_data)
+        else:
+            # Unknown format
+            return []
+
+    def parse_k8s_format(self, json_data):
         findings = []
 
         resources = json_data.get("Resources", [])
         for resource in resources:
             resource_identifier = f"{resource.get('Namespace', 'N/A')}/{resource.get('Kind', 'N/A')}/{resource.get('Name', 'N/A')}"
 
-            # Iterate through each item in the Results array
             for result in resource.get("Results", []):
-                # Now process each vulnerability in the Vulnerabilities array
                 for vuln in result.get("Vulnerabilities", []):
                     finding = self.process_vulnerability(vuln, resource_identifier)
                     if finding:
                         findings.append(finding)
+
+        return findings
+
+    def parse_image_format(self, json_data):
+        findings = []
+
+        for result in json_data.get("Results", []):
+            resource_identifier = result.get("Target", "N/A")
+
+            for vuln in result.get("Vulnerabilities", []):
+                finding = self.process_vulnerability(vuln, resource_identifier)
+                if finding:
+                    findings.append(finding)
 
         return findings
 
