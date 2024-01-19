@@ -41,17 +41,3 @@ trivy image --format json -o results.json --scanners=vuln --severity=CRITICAL --
 ```bash
 pip install trivy-streamlit
 ```
-
-### 🪇 Installing Streamlit
-
-https://docs.streamlit.io/get-started/installation
-
-```bash
-pip install streamlit
-```
-
-### 🏃 Running Streamlit
-
-```bash
-streamlit run trivy-ui.py
-```
