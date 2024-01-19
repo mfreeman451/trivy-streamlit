@@ -1,4 +1,6 @@
 import streamlit as st
+import streamlit.web.cli as stcli
+import sys
 import json
 
 
@@ -11,6 +13,11 @@ SEVERITY_ORDER = {
     "UNKNOWN": 1,
     "N/A": 0  # In case severity is not available
 }
+
+
+def start_app():
+    sys.argv = ["streamlit", "run", "trivy_streamlit/main_module.py"]
+    sys.exit(stcli.main())
 
 
 class TrivyParser:
